@@ -1,0 +1,10 @@
+<ion-view view-title="Places">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-avatar" ng-repeat="place in places" type="item-text-wrap" href="#/tab/list/{{place.id}}">
+        <div class="ion-map"></div>
+        <h2>{{place.name}}</h2>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
