@@ -1,4 +1,4 @@
-angular.module('starter.services', [])
+angular.module('tNavi.services', [])
 
 .factory('MapServ', function() {
   // Might use a resource here that returns a JSON array
