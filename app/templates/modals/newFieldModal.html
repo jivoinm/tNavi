@@ -1,0 +1,49 @@
+<ion-modal-view>
+    <ion-header-bar>
+      <h1 class="title">New Field</h1>
+    </ion-header-bar>
+    <ion-content>
+      <div class="card">
+        <div class="item item-divider">
+        <h1 class="title">Field details</h1>
+      </div>
+      <div class="item item-text-wrap">
+      <div class="list">
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Tillable area in ha</span>
+          <input type="text" placeholder="Field Name" value="{{model.name}}" ng-model="model.name">
+        </label>
+
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Harvest Year
+          </div>
+          <select value="{{model.year}}" ng-model="model.year">
+            <option>2014</option>
+            <option selected>2015</option>
+            <option>2016</option>
+          </select>
+        </label>
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Crop
+          </div>
+          <select value="{{model.crop}}" ng-model="model.crop">
+            <option>Corn</option>
+            <option>Wheat</option>
+            <option>Sunflowers</option>
+          </select>
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Tillable area in hectares</span>
+          <input type="text" placeholder="Tillable area in hectares" value="{{model.area}}" ng-model="model.area">
+        </label>
+      </div>
+      <div class="item item-divider">
+        <button class="button button-full button-energized" ng-click="closeModal('Save')">Save</button>
+        <button class="button button-full button-default" ng-click="closeModal('Cancel')">Cancel</button>
+      </div>
+    </div>
+
+    </ion-content>
+</ion-modal-view>

@@ -31,6 +31,11 @@ angular.module('tNavi.services', [])
     remove: function(map) {
       maps.splice(maps.indexOf(map), 1);
     },
+    add: function (map){
+      var lastMapIndex = maps.length--;
+      map.id = lastMapIndex;
+      maps.push(map);
+    },
     get: function(mapId) {
       for (var i = 0; i < maps.length; i++) {
         if (maps[i].id === parseInt(mapId)) {

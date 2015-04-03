@@ -83,7 +83,7 @@ angular.module('starter', ['ionic', 'tNavi.controllers', 'tNavi.services',
     .state('tab.list-detail', {
       url: '/list/:placeId',
       views: {
-        'tab-map': {
+        'tab-list': {
           templateUrl: 'templates/map-detail.html',
           controller: 'ListDetailCtrl'
         }

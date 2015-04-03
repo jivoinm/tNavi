@@ -1,10 +1,8 @@
-
 <ion-view view-title="Map">
   <ion-content scroll="false">
     <div class="mapWrap"  data-tap-disabled="true">
-      <map zoom="15" map-type-id="SATELLITE" disable-default-u-i="false">
-
-        <shape ng-repeat="place in places" name="polygon" on-click="showDetails(place)" paths="{{place.details.coordinates}}"
+      <map zoom="15" map-type-id="SATELLITE" disable-default-u-i="false" on-click="addNewFieldMarker()">
+        <shape ng-repeat="place in places" name="polygon" on-click="showFieldActions(place)" paths="{{place.details.coordinates}}"
           stroke-color="#FF0000" stroke-opacity="0.8" stroke-weight="2" fill-color="#FF0000" fill-opacity="0.35">
       </map>
     </div>
