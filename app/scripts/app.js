@@ -51,6 +51,15 @@ angular.module('starter', ['ionic', 'tNavi.controllers', 'tNavi.services',
       }
     }
   })
+  .state('tab.navi', {
+    url: '/navi',
+    views: {
+      'tab-dash': {
+        templateUrl: 'templates/tab-navi.html',
+        controller: 'MapNaviCtrl'
+      }
+    }
+  })
 
   .state('tab.map', {
       url: '/map',

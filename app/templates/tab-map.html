@@ -1,5 +1,5 @@
 <ion-view view-title="Map">
-  <ion-content scroll="false">
+  <ion-content scroll="true">
     <div class="mapWrap"  data-tap-disabled="true">
       <map zoom="15" map-type-id="SATELLITE" disable-default-u-i="false" on-click="addNewFieldMarker()">
         <shape ng-repeat="place in places" name="polygon" on-click="showFieldActions(place)" paths="{{place.details.coordinates}}"

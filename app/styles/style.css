@@ -10,3 +10,11 @@ map {
 .scroll, .mapWrap {
   height: 100%;
 }
+
+
+#svg {
+    background:silver;
+}
+g {
+    fill:red;
+}
