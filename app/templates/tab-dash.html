@@ -1,18 +1,8 @@
 <ion-view view-title="Dashboard">
-  <background-cycler class="bg-fade"></background-cycler>
-  <ion-header-bar id="header" class="bar bar-header bar-clear">
-    <h1 class="title">
-      <span class="city"><i id="city-nav-icon" class="icon ion-navigate"></i> {{currentLocationString}}</span><br>
-      <current-time localtz="current.local_tz_short"></current-time>
-    </h1>
-    <button ng-click="showSettings()" class="button button-icon"><i class="icon ion-gear-a"></i></button>
-  </ion-header-bar>
-
-  <ion-content scroll-event-interval="20" scroll-effects scrollbar-y="false" class="padding">
+  <ion-content class="padding">
     <ion-refresher on-refresh="refreshData()"></ion-refresher>
     <div id="main-content">
-      <current-weather></current-weather>
-      <forecast></forecast>
+      
     </div>
   </ion-content>
 </ion-view>

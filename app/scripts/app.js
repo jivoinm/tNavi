@@ -54,7 +54,7 @@ angular.module('starter', ['ionic', 'tNavi.controllers', 'tNavi.services',
   .state('tab.navi', {
     url: '/navi',
     views: {
-      'tab-dash': {
+      'tab-navi': {
         templateUrl: 'templates/tab-navi.html',
         controller: 'MapNaviCtrl'
       }

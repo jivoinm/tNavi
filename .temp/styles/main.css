@@ -226,3 +226,13 @@ h1,h2,h3,h4,h5 {
 #settings-modal .input-label {
   color: #fff;
 }
+
+.nav-details {
+  display:none;
+}
+
+@media only screen and (orientation: landscape) {
+  .platform-ios.platform-cordova:not(.fullscreen) .nav-details {
+    display: block;
+  }
+}
