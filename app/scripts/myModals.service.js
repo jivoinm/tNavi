@@ -27,5 +27,11 @@ return service;
 
 
 .controller('formCtrl', function($scope) {
+  $scope.save = function(model){
+    console.log('Save', model);
+  };
 
+  $scope.close = function(){
+    console.log('Close');
+  };
 });

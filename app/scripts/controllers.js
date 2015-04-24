@@ -10,62 +10,6 @@ angular.module('tNavi.controllers', ['ngMap'])
     }
   });
 
-  $scope.activeBgImageIndex = 0;
-
-  this.getBackgroundImage = function(lat, lng, locString) {
-    Flickr.search(locString, lat, lng).then(function(resp) {
-      var photos = resp.photos;
-      if(photos.photo.length) {
-        $scope.bgImages = photos.photo;
-        _this.cycleBgImages();
-      }
-    }, function(error) {
-      console.error('Unable to get Flickr images', error);
-    });
-  };
-
-  this.getCurrent = function(lat, lng, locString) {
-    Weather.getAtLocation(lat, lng).then(function(resp) {
-      /*
-      if(resp.response && resp.response.error) {
-        alert('This Wunderground API Key has exceeded the free limit. Please use your own Wunderground key');
-        return;
-      }
-      */
-      $scope.current = resp.data;
-      console.log('GOT CURRENT', $scope.current);
-      $rootScope.$broadcast('scroll.refreshComplete');
-    }, function(error) {
-      alert('Unable to get current conditions');
-      console.error(error);
-    });
-  };
-
-  this.cycleBgImages = function() {
-    $timeout(function cycle() {
-      if($scope.bgImages) {
-        $scope.activeBgImage = $scope.bgImages[$scope.activeBgImageIndex++ % $scope.bgImages.length];
-      }
-      //$timeout(cycle, 10000);
-    });
-  };
-
-  $scope.refreshData = function() {
-    Geo.getLocation().then(function(position) {
-      var lat = position.coords.latitude;
-      var lng = position.coords.longitude;
-
-      Geo.reverseGeocode(lat, lng).then(function(locString) {
-        $scope.currentLocationString = locString;
-        _this.getBackgroundImage(lat, lng, locString);
-      });
-      _this.getCurrent(lat, lng);
-    }, function(error) {
-      alert('Unable to get current location: ' + error);
-    });
-  };
-
-  $scope.refreshData();
 })
 
 .controller('MapCtrl', function($scope, MapServ, $ionicLoading, $ionicModal, $ionicActionSheet, $timeout, $state, myModals) {
@@ -85,8 +29,9 @@ angular.module('tNavi.controllers', ['ngMap'])
       $ionicLoading.show({
         template: 'Loading...'
       });
+
       var pos = new google.maps.LatLng($scope.places[0].details.latitude, $scope.places[0].details.longitude);
-      console.log(pos);
+
       $scope.map.setCenter(pos);
       $ionicLoading.hide();
     }
@@ -212,7 +157,7 @@ angular.module('tNavi.controllers', ['ngMap'])
        if(index === 0){
          //save field name
          var area = google.maps.geometry.spherical.computeArea(poly.getPath());
-         //$scope.showModal('templates/newFieldModal.html', {area: (area.toFixed(1)/10000).toFixed(1)});
+
          myModals.showAddNewField({
            settings: {
              title: 'Add New Parcel'
@@ -220,7 +165,8 @@ angular.module('tNavi.controllers', ['ngMap'])
            model: {
              fields: [
                { title: 'Place name', type: 'text', require: true },
-               { title: 'Year', type: 'select', require: true, show_options: '2014,2015,2016' }
+               { title: 'Year', type: 'select', require: true, show_options: [2014,2015,2016] },
+               { title: 'Plantation', type: 'select', require: true, show_options: ['Corn', 'Sunflower', 'Grain'] }
              ]
            }
            }).then(function (result) {
