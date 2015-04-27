@@ -18,6 +18,7 @@ function showAddNewField(model){
     // return appModalService.show('templates/modals/login.html', 'loginModalCtrl', userInfo)
 }
 
+
 function showEditUser(dataParams){
     // return appModalService....
 }
@@ -28,6 +29,7 @@ return service;
 
 .controller('formCtrl', function($scope) {
   $scope.save = function(model){
+    $scope.closeModal();
     console.log('Save', model);
   };
 

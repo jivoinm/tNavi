@@ -39,7 +39,7 @@ angular.module('starter')
                     break;
                 case 'select':
                   fieldTemplate = '<label class="item item-input item-stacked-label"><div class="input-label">{{field.title}}</div>'+
-                      '<select name="fieldName" ng-model="model" ng-options="label for value in field.show_options">' +
+                      '<select name="fieldName" ng-model="model" ng-options="value as value for value in field.show_options">' +
                          '</select>' +
                        '</label>';
                     break;

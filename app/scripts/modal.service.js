@@ -29,11 +29,19 @@ function appModalService($ionicModal, $rootScope, $q, $injector, $controller) {
                 modalScope.modal.show();
             };
             modalScope.closeModal = function (action) {
-                deferred.resolve({
+              var model = {};
+              angular.forEach(modalScope.model.fields, function (property, key) {
+                  if(property.value)
+                  {
+                      model[property.title.replace(' ','_')] = property.value;
+                  }
+              });
+
+              deferred.resolve({
                   action: action,
-                  model: modalScope.model
+                  model: model
                   });
-                modalScope.modal.hide();
+              modalScope.modal.hide();
             };
             modalScope.$on('modal.hidden', function (thisModal) {
                 if (thisModal.currentScope) {

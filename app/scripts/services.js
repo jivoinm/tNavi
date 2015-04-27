@@ -5,7 +5,6 @@ angular.module('tNavi.services', [])
 
   // Some fake testing data
   var maps = [{
-    id: 0,
     name: 'Parcela 1',
     details: {
       longitude: 20.70635857720933,
