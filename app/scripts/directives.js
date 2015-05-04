@@ -217,4 +217,32 @@ angular.module('ionic.weather.directives', [])
       }
     }
   }
+})
+.directive('naviBar', function($compile, $animate) {
+  return {
+    restrict: 'E',
+    template: '<rect ng-attr-x="{{item.x}}" ng-attr-y="{{item.y}}" ng-attr-width="{{item.width}}" ng-attr-height="{{item.height}}" ng:attr:r="1" style="fill:#{{item.fillColor}}; stroke:#000000;stroke-width:2px;" ng-repeat="item in items" />',
+    replace: true,
+    scope: true,
+    link: function($scope, $element, $attr) {
+      var barWidth = $element[0].parentNode.parentNode.clientWidth;
+      var barHeight = $element[0].parentNode.parentNode.clientHeight;;
+      var rectSize = barHeight - 4;
+      var nrOfRects = Math.round(barWidth / (rectSize + 10));
+
+      $scope.items = [];
+      for(i=0; i<nrOfRects; i++){
+        var item = {
+          width: rectSize,
+          height: rectSize,
+          x: (rectSize * i),
+          y: 10,
+          fillColor: '009900'
+        }
+        $scope.items.push(item);
+      }
+
+      console.log(barWidth, barHeight);
+    }
+  }
 });
