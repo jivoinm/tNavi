@@ -39,8 +39,7 @@ angular.module('starter')
                     break;
                 case 'select':
                   fieldTemplate = '<label class="item item-input item-stacked-label"><div class="input-label">{{field.title}}</div>'+
-                      '<select name="fieldName ng-model="model" ng-required="{{ field.require }}" ng-options="value for value in splitOptions(field.show_options)">' +
-                         '<option value=""></option>'+
+                      '<select name="fieldName" ng-model="model" ng-options="value as value for value in field.show_options">' +
                          '</select>' +
                        '</label>';
                     break;
@@ -85,9 +84,9 @@ angular.module('starter')
                 }
 
                 if(scope.field) {
-                    //elem[0].innerHTML = getFieldTemplate(scope.field.type);
-                    //$compile(elem)(scope);
-                    console.log(elem);
+                    var markup = getFieldTemplate(scope.field.type);
+                    elem.html(markup);
+                    $compile(elem.contents())(scope);
 
                     if(scope.field.focus === true) {
                         $timeout(function() {

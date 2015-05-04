@@ -4,7 +4,11 @@
     </ion-header-bar>
     <ion-content>
       <div class="list">
-        <field ng-field="field" ng-model="field.value" index="$index" ng-repeat="field in model.fields">{{field.title}}</field>
+        <field ng-field="field" ng-model="field.value" ng-index="$index" ng-repeat="field in model.fields"></field>
+      </div>
+      <div class="item item-divider">
+        <button class="button button-full button-energized" ng-click="save(model)">Save</button>
+        <button class="button button-full button-default" ng-click="close()">Cancel</button>
       </div>
     </ion-content>
 </ion-modal-view>
