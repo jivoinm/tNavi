@@ -120,7 +120,7 @@ angular.module('tNavi.controllers', ['ngMap'])
      titleText: 'Select Action on '+field.name,
      cancelText: 'Cancel',
      cancel: function() {
-          // add cancel code..
+          $scope.clearField();
         },
      buttonClicked: function(index) {
        if(index === 0){
@@ -129,7 +129,7 @@ angular.module('tNavi.controllers', ['ngMap'])
        }
 
        if(index === 1){
-         $scope.drawSvgPolygon(field);
+         $state.go('tab.map-navi', {placeId: field.id}, {location: false});
        }
        return true;
      }
@@ -154,10 +154,10 @@ angular.module('tNavi.controllers', ['ngMap'])
        $scope.clearField();
       },
      buttonClicked: function(index) {
-       if(index === 0){
+       if(index === 0) {
          //save field name
-         var path = poly.getPath();
-         var area = google.maps.geometry.spherical.computeArea(path);
+         var vertices = poly.getPath();
+         var area = google.maps.geometry.spherical.computeArea(vertices);
 
          myModals.showAddNewField({
            settings: {
@@ -170,25 +170,21 @@ angular.module('tNavi.controllers', ['ngMap'])
              ]
            }
          }).then(function (parcelModel) {
-           parcelModel.details = {
-             longitude: 20.70635857720933,
-             latitude: 45.39334149009799,
-             coordinates: [
-               [45.39390795434832, 20.70458664698406],
-               [45.39390795434832, 20.7084403592479],
-               [45.39413979800767, 20.7084403592479],
-               [45.39413979800767, 20.7083026856469],
-               [45.39520523352119, 20.7083026856469],
-               [45.39520523352119, 20.70444556016851],
-               [45.39499532557855, 20.70444556016851],
-               [45.39499532557855, 20.70458664698406],
-               [45.39390795434832, 20.70458664698406]
-               ]
+            parcelModel.details = {
+             coordinates: []
            };
 
-              console.log('Result ', parcelModel);
+          // Iterate over the vertices.
+          for (var i =0; i < vertices.getLength(); i++) {
+            var xy = vertices.getAt(i);
+            parcelModel.details.coordinates.push([xy.lat(), xy.lng()]);
+          }
 
-              MapServ.add(parcelModel);
+          parcelModel.details.longitude = parcelModel.details.coordinates[0][0];
+          parcelModel.details.latitude = parcelModel.details.coordinates[0][1];
+          console.log('Result ', parcelModel);
+          $scope.clearField();
+          MapServ.add(parcelModel);
           });
        }
        return true;

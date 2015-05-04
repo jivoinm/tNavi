@@ -51,16 +51,6 @@ angular.module('starter', ['ionic', 'tNavi.controllers', 'tNavi.services',
       }
     }
   })
-  .state('tab.navi', {
-    url: '/navi',
-    views: {
-      'tab-navi': {
-        templateUrl: 'templates/tab-navi.html',
-        controller: 'MapNaviCtrl'
-      }
-    }
-  })
-
   .state('tab.map', {
       url: '/map',
       views: {
@@ -76,6 +66,15 @@ angular.module('starter', ['ionic', 'tNavi.controllers', 'tNavi.services',
         'tab-map': {
           templateUrl: 'templates/map-detail.html',
           controller: 'MapDetailCtrl'
+        }
+      }
+    })
+    .state('tab.map-navi', {
+      url: '/map/:placeId',
+      views: {
+        'tab-map': {
+          templateUrl: 'templates/tab-navi.html',
+          controller: 'MapNaviCtrl'
         }
       }
     })
