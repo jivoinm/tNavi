@@ -34,7 +34,7 @@ angular.module('ionic.weather.directives', [])
 .directive('naviBar', function($compile, $animate) {
   return {
     restrict: 'E',
-    template: '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="50"><rect ng-attr-x="{{item.x}}" ng-attr-y="{{item.y}}" ng-attr-width="{{item.width}}" ng-attr-height="{{item.height}}" ng:attr:r="1" style="fill:#{{item.fillColor}}; stroke:#000000;stroke-width:2px;" ng-repeat="item in items" /> </svg>',
+    template: '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="50" preserveAspectRatio="xMinYMin meet"><rect ng-attr-x="{{item.x}}" ng-attr-y="{{item.y}}" ng-attr-width="{{item.width}}" ng-attr-height="{{item.height}}" ng:attr:r="1" style="fill:#{{item.fillColor}}; stroke:#000000;stroke-width:2px;" ng-repeat="item in items" /> </svg>',
     replace: true,
     scope: true,
     link: function($scope, $element, $attr) {
@@ -98,7 +98,7 @@ angular.module('ionic.weather.directives', [])
     }
 
     return {
-        path: 'M' + svgPaths.join('z M') + 'z',
+        path: 'M100,100 ' + 'L'+ svgPaths.join(' ') + 'z',
         x: minX,
         y: minY,
         width: maxX - minX,
@@ -109,6 +109,7 @@ angular.module('ionic.weather.directives', [])
 
   function drawPoly(node, props) {
 
+    var mapSizeWidth = node.parentNode.parentNode.clientWidth;
     var svg = node.cloneNode(false),
         g = document.createElementNS("http://www.w3.org/2000/svg", 'g'),
         path = document.createElementNS("http://www.w3.org/2000/svg", 'path');
@@ -116,9 +117,9 @@ angular.module('ionic.weather.directives', [])
     path.setAttribute('d', props.path);
     g.appendChild(path);
     svg.appendChild(g);
-    svg.setAttribute('viewBox', [props.x, props.y, props.width, props.height].join(' '));
-    svg.setAttribute('width', mapWidth);
-    svg.setAttribute('height', mapHeight);
+    svg.setAttribute('viewBox', [0, 0, mapSizeWidth, mapSizeWidth].join(' '));
+    svg.setAttribute('width', mapSizeWidth);
+    svg.setAttribute('height', mapSizeWidth);
 }
 
   return {
@@ -127,14 +128,14 @@ angular.module('ionic.weather.directives', [])
     replace: true,
     link: function($scope, $element, $attr) {
       mapWidth = $element[0].parentNode.parentNode.clientWidth;
-      //mapHeight = $element[0].parentNode.parentNode.clientHeight;
       mapHeight = mapWidth;
+
       if($scope.place){
         //draw map path
         var svgProps = poly_gm2svg($scope.place.details.coordinates);
         drawPoly($element[0], svgProps);
       }
-     
+
 
       console.log(mapWidth, mapHeight);
     }
