@@ -6,7 +6,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'tNavi.controllers', 'tNavi.services',
-  'ionic.weather.services', 'ionic.weather.filters', 'ionic.weather.directives'])
+  'ionic.weather.services', 'ionic.weather.filters', 'ionic.weather.directives', 'ngCordova'])
 .constant('WUNDERGROUND_API_KEY', '1cc2d3de40fa5af0')
 .constant('FORECASTIO_KEY', '4cd3c5673825a361eb5ce108103ee84a')
 .constant('FLICKR_API_KEY', '504fd7414f6275eb5b657ddbfba80a2c')

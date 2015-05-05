@@ -60,19 +60,31 @@ angular.module('ionic.weather.directives', [])
   }
 })
 .directive('naviPanel', function() {
-  mapWidth    = 200;
-  mapHeight   = 100;
+  mapWidth    = 360;
+  mapHeight   = 360;
   /**
   *@param latLng object with properties lat and lng(of the coordinate)
   *@return object with properties x and y(of the translated latLng)
   **/
   function latLng2point( lat, lng){
+    // get x value
+    var x = (lng+180)*(mapWidth/360)
 
+    // convert from degrees to radians
+    var latRad = lat*Math.PI/180;
+
+    // get y value
+    var mercN = Math.log(Math.tan((Math.PI/4)+(latRad/2)));
+    var y     = (mapHeight/2)-(mapWidth*mercN/(2*Math.PI));
     return {
-            x:(lng+180)*(mapWidth/360),
-            y:(mapHeight/2)-(mapWidth*Math.log(Math.tan((Math.PI/4)
-                       +((lat*Math.PI/180)/2)))/(2*Math.PI))
-           };
+      x: (x - 100),
+      y: (y - 100 )
+    };
+    // return {
+    //         x:(lng+180)*(mapWidth/360),
+    //         y:(mapHeight/2)-(mapWidth*Math.log(Math.tan((Math.PI/4)
+    //                    +((lat*Math.PI/180)/2)))/(2*Math.PI))
+    //        };
   }
 
   function poly_gm2svg(gmPaths) {
@@ -98,7 +110,7 @@ angular.module('ionic.weather.directives', [])
     }
 
     return {
-        path: 'M100,100 ' + 'L'+ svgPaths.join(' ') + 'z',
+        path: 'M10,10 L' + svgPaths.join(' L') + 'z',
         x: minX,
         y: minY,
         width: maxX - minX,
@@ -108,7 +120,7 @@ angular.module('ionic.weather.directives', [])
 }
 
   function drawPoly(node, props) {
-
+    console.log(props);
     var mapSizeWidth = node.parentNode.parentNode.clientWidth;
     var svg = node.cloneNode(false),
         g = document.createElementNS("http://www.w3.org/2000/svg", 'g'),
@@ -124,19 +136,24 @@ angular.module('ionic.weather.directives', [])
 
   return {
     restrict: 'E',
-    template: '<svg xmlns="http://www.w3.org/2000/svg"></svg>',
+    template: '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet"></svg>',
     replace: true,
     link: function($scope, $element, $attr) {
       mapWidth = $element[0].parentNode.parentNode.clientWidth;
       mapHeight = mapWidth;
 
-      if($scope.place){
-        //draw map path
-        var svgProps = poly_gm2svg($scope.place.details.coordinates);
-        drawPoly($element[0], svgProps);
+      // if($scope.place){
+      //   //draw map path
+      //   var svgProps = poly_gm2svg($scope.place.details.coordinates);
+      //   drawPoly($element[0], svgProps);
+      // }
+      var polygon = {
+        p1: [(mapWidth * 0.1), (mapHeight * 0.1)],
+        p2: [(mapWidth * 0.9), (mapHeight * 0.1)],
+        p3: [(mapWidth * 0.9), (mapHeight * 0.9)],
+        p4: [(mapWidth * 0.1), (mapHeight * 0.9)],
       }
-
-
+      $scope.polygon = polygon;
       console.log(mapWidth, mapHeight);
     }
   }

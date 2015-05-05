@@ -206,8 +206,52 @@ angular.module('tNavi.controllers', ['ngMap'])
 
 })
 
-.controller('MapNaviCtrl', function($scope, $stateParams, MapServ) {
+.controller('MapNaviCtrl', function($scope, $stateParams, MapServ, $cordovaGeolocation) {
   $scope.place = MapServ.get($stateParams.placeId);
+  
+  var posOptions = {timeout: 10000, enableHighAccuracy: false};
+  $scope.coordinates = {};
+  $scope.myCurrentCoordinates = {};
+  $scope.getMyCurrentLocation = function(){
+    $cordovaGeolocation.getCurrentPosition(posOptions)
+      .then(function (position) {
+        var lat  = position.coords.latitude;
+        var long = position.coords.longitude;
+        $scope.myCurrentCoordinates = position.coords;
+      }, function(err) {
+        console.log(err);
+      });
+  }
+
+
+  var watchOptions = {
+    frequency : 1000,
+    timeout : 3000,
+    enableHighAccuracy: false // may cause errors if true
+  };
+
+  var watch = $cordovaGeolocation.watchPosition(watchOptions);
+  watch.then(
+    null,
+    function(err) {
+      console.log(err);
+    },
+    function(position) {
+      var lat  = position.coords.latitude;
+      var long = position.coords.longitude;
+      console.log(lat, long);
+      $scope.coordinates = position.coords;
+  });
+
+
+  watch.clearWatch();
+  // // OR
+  // $cordovaGeolocation.clearWatch(watch)
+  //   .then(function(result) {
+  //     // success
+  //     }, function (error) {
+  //     // error
+  //   });
 })
 
 .controller('MapDetailCtrl', function($scope, $stateParams, MapServ) {

@@ -7,71 +7,25 @@
 <ion-view view-title="Navigation">
   <ion-content class="padding">
     <div class="row nav">
-      <div class="col col-10 nav-details">
-        <div class="list card">
-          <div class="item item-divider">
-            Parcel details
+          <div class="col col-100 nav-bar">
+             <navi-bar/>
           </div>
-          <div class="item">
-            Enter home address<br/>
-            Enter home address<br/>
-            Enter home address<br/>
-
-          </div>
-          <a href="#" class="item item-icon-left">
-            <i class="icon ion-ios-telephone"></i>
-            Enter phone number
-          </a>
-
-          <a href="#" class="item item-icon-left">
-            <i class="icon ion-wifi"></i>
-            Enter wireless password
-          </a>
-
-          <a href="#" class="item item-icon-left">
-            <i class="icon ion-card"></i>
-            Enter card information
-          </a>
-        </div>
-        <div class="list card">
-          <div class="item item-divider">
-            Parcel details
-          </div>
-          <div class="item">
-            Enter home address<br/>
-            Enter home address<br/>
-            Enter home address<br/>
-
-          </div>
-          <a href="#" class="item item-icon-left">
-            <i class="icon ion-ios-telephone"></i>
-            Enter phone number
-          </a>
-
-          <a href="#" class="item item-icon-left">
-            <i class="icon ion-wifi"></i>
-            Enter wireless password
-          </a>
-
-          <a href="#" class="item item-icon-left">
-            <i class="icon ion-card"></i>
-            Enter card information
-          </a>
-        </div>
-      </div>
-      <div class="col col-80">
-        <div class="row">
-          <div class="col nav-bar">
-              <navi-bar/>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col nav-map">
-            <navi-panel></navi-panel>
-          </div>
-        </div>
-      </div>
-      <div class="col col-10 nav-stats">c</div>
+    </div>
+    <div class="row">
+       <div class="col col-100 nav-map">
+            <md-button class="md-raised md-primary" ng-click="getMyCurrentLocation()">
+              <i class="icon ion-ionic"></i>Current
+            </md-button>
+           <label>lat:{{myCurrentCoordinates.latitude}}</label>
+           <label>long:{{myCurrentCoordinates.longitude}}</label>
+----------------------
+           <label>lat:{{coordinates.latitude}}</label>
+           <label>long:{{coordinates.longitude}}</label>
+           <navi-panel></navi-panel>
+           <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet">
+            
+           </svg>
+       </div>
     </div>
   </ion-content>
 </ion-view>
