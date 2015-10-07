@@ -1,0 +1,31 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<ion-view view-title="Navigation">
+  <ion-content class="padding">
+    <div class="row nav">
+          <div class="col col-100 nav-bar">
+             <navi-bar/>
+          </div>
+    </div>
+    <div class="row">
+       <div class="col col-100 nav-map">
+            <md-button class="md-raised md-primary" ng-click="getMyCurrentLocation()">
+              <i class="icon ion-ionic"></i>Current
+            </md-button>
+           <label>lat:{{myCurrentCoordinates.lat}}</label>
+           <label>long:{{myCurrentCoordinates.lng}}</label>
+----------------------
+           <label>lat:{{coordinates.latitude}}</label>
+           <label>long:{{coordinates.longitude}}</label>
+           <navi-panel></navi-panel>
+           <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet">
+
+           </svg>
+       </div>
+    </div>
+  </ion-content>
+</ion-view>
