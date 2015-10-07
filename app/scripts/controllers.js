@@ -25,16 +25,16 @@ angular.module('tNavi.controllers', ['ngMap'])
   $scope.$on('mapInitialized', function(event, map) {
     $scope.map = map;
     $scope.places = MapServ.all();
-    if($scope.places.length > 0 ){
-      $ionicLoading.show({
-        template: 'Loading...'
-      });
-
-      var pos = new google.maps.LatLng($scope.places[0].details.latitude, $scope.places[0].details.longitude);
-
-      $scope.map.setCenter(pos);
-      $ionicLoading.hide();
-    }
+    // if($scope.places.length > 0 ){
+    //   $ionicLoading.show({
+    //     template: 'Loading...'
+    //   });
+    //
+    //   var pos = new google.maps.LatLng($scope.places[0].details.latitude, $scope.places[0].details.longitude);
+    //
+    //   $scope.map.setCenter(pos);
+    //   $ionicLoading.hide();
+    // }
 
     poly = new google.maps.Polygon({
       strokeWeight: 3,
@@ -208,20 +208,10 @@ angular.module('tNavi.controllers', ['ngMap'])
 
 .controller('MapNaviCtrl', function($scope, $stateParams, MapServ, $cordovaGeolocation) {
   $scope.place = MapServ.get($stateParams.placeId);
-  
-  var posOptions = {timeout: 10000, enableHighAccuracy: false};
+
+
   $scope.coordinates = {};
-  $scope.myCurrentCoordinates = {};
-  $scope.getMyCurrentLocation = function(){
-    $cordovaGeolocation.getCurrentPosition(posOptions)
-      .then(function (position) {
-        var lat  = position.coords.latitude;
-        var long = position.coords.longitude;
-        $scope.myCurrentCoordinates = position.coords;
-      }, function(err) {
-        console.log(err);
-      });
-  }
+  $scope.myCurrentCoordinates = MapServ.getCurrentLocation();
 
 
   var watchOptions = {
